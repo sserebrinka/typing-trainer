@@ -15,17 +15,13 @@ from datetime import datetime
 @login_required
 def profile_view(request):
     try:
-        # Получаем профиль пользователя
         user_profile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
-        # Создаем профиль, если его нет
         user_profile = UserProfile.objects.create(user=request.user)
         messages.info(request, "Ваш профиль был создан автоматически.")
 
-    # Используем user_profile для получения результатов тестов
     test_results = TestResult.objects.filter(user_profile=user_profile).order_by('-test_date')
 
-    # Статистика
     total_tests = test_results.count()
     total_time = sum(result.time_taken for result in test_results)
     record_speed = test_results.order_by('-speed').first().speed if test_results.exists() else 0
@@ -71,14 +67,8 @@ def update_test_results(request):
         accuracy = data.get('accuracy')
         time_taken = data.get('time_taken')
 
-        # Проверка на отсутствие необходимых параметров
-        if not all([speed, accuracy, time_taken]):
-            return JsonResponse({'error': 'Недостающие параметры'}, status=400)
-
-        # Получаем профиль пользователя
         user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
-        # Создание нового результата
         TestResult.objects.create(
             user_profile=user_profile,
             speed=speed,

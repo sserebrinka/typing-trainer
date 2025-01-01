@@ -4,11 +4,11 @@ from .models import UserProfile
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User  # Для редактирования данных пользователя
+        model = User  
         fields = ['username', 'first_name', 'last_name', 'email']
 
 
 class UserProfileExtraForm(forms.ModelForm):
     class Meta:
-        model = UserProfile  # Для редактирования данных из UserProfile
+        model = UserProfile 
         fields = ['avatar']

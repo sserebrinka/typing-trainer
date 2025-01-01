@@ -69,7 +69,7 @@ a {
 }
 
 .footer {
-    margin-top: auto; /* Перемещает футер внизу */
+    margin-top: auto; 
     background-color: #f1f1f1;
     padding: 20px;
     text-align: center;
@@ -135,10 +135,10 @@ a {
 }
 
 .profile-header-container {
-    position: absolute; /* Абсолютное позиционирование */
-    right: 30px; /* Отступ от правого края */
-    top: 50%; /* Выравнивание по вертикали */
-    transform: translateY(-60%); /* Центровка по вертикали */
+    position: absolute; 
+    right: 30px; 
+    top: 50%; 
+    transform: translateY(-60%); 
 }
 
 .profile-link,
@@ -156,8 +156,8 @@ a {
 }
 
 .register-link {
-    color: inherit; /* или другой цвет, который виден */
-    text-decoration: underline; /* Чтобы подчеркнуть текст */
+    color: inherit;
+    text-decoration: underline;
 }
 
 .login-button {
