@@ -13,7 +13,6 @@ class UserProfile(models.Model):
     
 
 class TestResult(models.Model):
-    # Связь с моделью UserProfile
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     speed = models.FloatField()
     accuracy = models.FloatField()
