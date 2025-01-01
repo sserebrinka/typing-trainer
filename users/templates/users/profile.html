@@ -1,0 +1,103 @@
+{% extends "trainer/base.html" %}
+{% load static %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+<div class="profile-container">
+    {% if messages %}
+    <div class="alert alert-success mt-3" role="alert">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="profile-header">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-info">
+                <div class="form-group">
+                    <div class="profile-avatar">
+                        <img src="{% if user_profile.avatar %}{{ user_profile.avatar.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}" alt="Avatar" class="avatar-img">
+                    </div>
+                    <input type="file" name="avatar" class="form-control-file" id="avatar">
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" value="{{ user.username }}" placeholder="Введите Username">
+                </div>
+                <div class="form-group">
+                    <label for="first-name">Имя</label>
+                    <input type="text" name="first_name" class="form-control" id="first-name" value="{{ user.first_name }}" placeholder="Введите имя">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Фамилия</label>
+                    <input type="text" name="last_name" class="form-control" id="last-name" value="{{ user.last_name }}" placeholder="Введите фамилию">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" value="{{ user.email }}" placeholder="Введите email">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-save mt-3">Сохранить изменения</button>
+        </form>
+    </div>
+</div>
+
+<div class="test-results-container">
+    <h3 class="mt-4" style="font-family: 'Prosto One', sans-serif;">Мои результаты тестирования</h3>
+    <div class="table-scroll-container">
+        <table class="table table-striped result-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Скорость</th>
+                    <th>Точность</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in test_results %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ result.speed }} зн/мин</td>
+                    <td>{{ result.accuracy }}%</td>
+                    <td>{{ result.test_date|date:"d.m.Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Нет данных</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="stats-container mb-4">
+    <div class="stat-box">
+        <h4>Тестов пройдено</h4>
+        <p>{{ total_tests }}</p>
+    </div>
+    <div class="stat-box">
+        <h4>Общее время</h4>
+        <p>{{ total_time }} сек.</p>
+    </div>
+    <div class="stat-box">
+        <h4>Рекорд</h4>
+        <p>{{ record_speed }} зн/мин</p>
+    </div>
+</div>
+
+<div class="logout-form">
+    {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Выход</button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

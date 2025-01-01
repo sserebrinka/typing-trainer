@@ -1,0 +1,47 @@
+{% extends 'trainer/base.html' %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock title %}
+
+{% block content %}
+<div class="registration-container">
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                {% if 'registration' in message.tags %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <h2 class="text-center mt-4" style="font-size: 24px; font-family: 'Prosto One';">Регистрация</h2>
+    <form method="post" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="username">Имя пользователя</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Введите имя пользователя">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Введите email">
+        </div>
+
+        <div class="form-group">
+            <label for="password1">Пароль</label>
+            <input type="password" name="password1" class="form-control" id="password1" placeholder="Введите пароль">
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Повторите пароль</label>
+            <input type="password" name="password2" class="form-control" id="password2" placeholder="Повторите пароль">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-3 register-btn">Зарегистрироваться</button>
+    </form>
+
+    <p class="text-center mt-3" style="font-size: 24px; font-family: 'Prosto One';">Уже есть аккаунт?</p>
+    <p class="text-center"><a href="{% url 'users:login' %}" class="login-button">Войти</a></p>
+</div>
+{% endblock content %}
