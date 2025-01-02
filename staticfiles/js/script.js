@@ -99,4 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
         return cookieValue ? cookieValue.pop() : '';
     }
+
+    function selectAll() {
+        let selectAllCheckbox = document.getElementById('select-all');
+        let checkboxes = document.getElementsByName('selected_results');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
 });

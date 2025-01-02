@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import profile_view, login_view, registration_view, update_test_results
+from .views import profile_view, login_view, registration_view, update_test_results, delete_test_results
 from django.contrib.auth.views import LogoutView
 
 app_name = 'users'
@@ -10,4 +10,5 @@ urlpatterns = [
     path('registration/', registration_view, name='registration'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('update_test_results/', update_test_results, name='update_test_results'),
+    path('delete_test_results/', delete_test_results, name='delete_test_results'),
 ]

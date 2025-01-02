@@ -60,6 +60,20 @@ def profile_view(request):
 
 
 @login_required
+def delete_test_results(request):
+    if request.method == 'POST':
+        selected_results = request.POST.getlist('selected_results')
+        
+        if selected_results:
+            TestResult.objects.filter(id__in=selected_results).delete()
+            messages.success(request, "Выбранные результаты успешно удалены.")
+        else:
+            messages.error(request, "Не выбраны результаты для удаления.")
+    
+    return redirect('users:profile')
+
+
+@login_required
 def update_test_results(request):
     if request.method == 'POST':
         data = json.loads(request.body)
