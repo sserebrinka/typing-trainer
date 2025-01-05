@@ -46,35 +46,43 @@
     </div>
 </div>
 
-<div class="test-results-container">
-    <h3 class="mt-4" style="font-family: 'Prosto One', sans-serif;">Мои результаты тестирования</h3>
-    <div class="table-scroll-container">
-        <table class="table table-striped result-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Скорость</th>
-                    <th>Точность</th>
-                    <th>Дата</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in test_results %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ result.speed }} зн/мин</td>
-                    <td>{{ result.accuracy }}%</td>
-                    <td>{{ result.test_date|date:"d.m.Y H:i" }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">Нет данных</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<form id="delete-form" method="POST" action="{% url 'users:delete_test_results' %}">
+    {% csrf_token %}
+    <div class="test-results-container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mt-4" style="font-family: 'Prosto One', sans-serif;">Мои результаты тестирования</h3>
+            <button type="submit" class="btn btn-delete-selected" style="background-color: #052c65; color: #fff;">Удалить выбранные</button>
+        </div>
+        <div class="table-scroll-container">
+            <table class="table table-striped result-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"> Выбрать все</th>
+                        <th>№</th>
+                        <th>Скорость</th>
+                        <th>Точность</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in test_results %}
+                    <tr>
+                        <td><input type="checkbox" name="selected_results" value="{{ result.id }}"></td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ result.speed }} зн/мин</td>
+                        <td>{{ result.accuracy }}%</td>
+                        <td>{{ result.test_date|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Нет данных</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</form>
 
 <div class="stats-container mb-4">
     <div class="stat-box">
@@ -101,3 +109,4 @@
 </div>
 
 {% endblock content %}
+
