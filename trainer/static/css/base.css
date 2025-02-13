@@ -26,6 +26,7 @@ a {
 
 .container {
     flex: 1;
+    color: #000;
     box-sizing: border-box;
     max-width: 1050px;
     margin: 0 auto;
