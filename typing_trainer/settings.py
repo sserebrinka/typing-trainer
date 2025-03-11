@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trainer',
     'users',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
