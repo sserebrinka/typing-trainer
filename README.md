@@ -24,25 +24,21 @@
 	```bash
 	git clone https://github.com/sserebrinka/typing-trainer
 	cd typing_trainer
-	```
 	</li>
 	<li>
 	2. Установите все зависимости:
 	```bash
 	docker-compose up --build
-	```
 	Это создаст и запустит все необходимые контейнеры для проекта.
 	Запуск контейнеров в фоновом режиме:
 	```bash
 	docker-compose up -d
-	```
 	После того как контейнеры будут построены и запущены, проект будет доступен по адресу http://localhost:8000
 	</li>
 	<li>
 	3. Остановить все контейнеры:
 	```bash
 	docker-compose down
-	```
 	</li>
 </ul>
 <ul>
